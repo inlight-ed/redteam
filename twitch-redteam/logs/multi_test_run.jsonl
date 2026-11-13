@@ -1,0 +1,8 @@
+{"ts": "2026-11-13T16:34:13.859230", "agent_id": "multi_agent_3", "event": "navigate", "url": "https://example.com", "planned_sec": 12}
+{"ts": "2026-11-13T16:34:13.860662", "agent_id": "multi_agent_2", "event": "navigate", "url": "https://example.com"}
+{"ts": "2026-11-13T16:34:13.865128", "agent_id": "multi_agent_1", "event": "navigate", "url": "https://example.com"}
+{"ts": "2026-11-13T16:34:17.312811", "agent_id": "multi_agent_3", "event": "session_end", "total_watch_sec": 0}
+{"ts": "2026-11-13T16:34:26.116279", "agent_id": "multi_agent_1", "event": "leave", "duration_sec": 148}
+{"ts": "2026-11-13T16:34:30.316770", "agent_id": "multi_agent_2", "event": "session_end", "total_watch_sec": 15, "chat_sent": 0}
+{"ts": "2026-11-13T16:36:54.216210", "agent_id": "multi_agent_1", "event": "return"}
+{"ts": "2026-11-13T16:36:54.216314", "agent_id": "multi_agent_1", "event": "session_end", "total_watch_sec": 40, "mouse_events": 0, "tab_blur_events": 0}

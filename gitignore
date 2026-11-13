@@ -1,0 +1,57 @@
+# === Python ===
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# === Виртуальные окружения ===
+venv/
+ENV/
+env/
+.venv
+
+# === IDE и редакторы ===
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# === Проектные данные и логи (НЕ коммитить!) ===
+logs/
+*.jsonl
+*.log
+data/
+*.csv
+!config/docker-compose.yml
+!config.docker.yaml
+
+# === Чувствительная информация и конфиги ===
+.env
+*.key
+*.crt
+*.pem
+config/proxies.csv
+config/profiles_bank.yaml
+camou_config.json
+
+# === Инструменты обхода и кэш ===
+.playwright/
+.camoufox/

@@ -5,6 +5,8 @@ from humanizer.mouse import human_move
 from humanizer.timing import lognormal_seconds
 
 class LurkerAgent(BaseAgent):
+    """Агент, который только смотрит стрим."""
+    
     async def run(self, stream_url):
         self._log("navigate", url=stream_url)
         await self.page.goto(stream_url, wait_until="domcontentloaded")
@@ -34,14 +36,13 @@ class LurkerAgent(BaseAgent):
                 elapsed += 30
 
         self._log("session_end", total_watch_sec=int(elapsed),
-                  mouse_events=self.state.mouse_events, tab_blur_events=self.state.tab_blur_events)
+                  mouse_events=self.state.mouse_events,
+                  tab_blur_events=self.state.tab_blur_events)
 
     async def _tab_blur(self):
         try:
-            mode = random.choices(["tab_switch", "minimize", "freeze"], weights=[0.7, 0.2, 0.1])[0]
             duration = random.uniform(2, 30)
-            if mode == "tab_switch":
-                await self.visibility.tab_switch(duration)
+            await self.visibility.tab_switch(duration)
             self.state.tab_blur_events += 1
         except Exception as e:
             self._log("tab_blur_error", error=str(e))
