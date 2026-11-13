@@ -69,7 +69,8 @@ async def run_single_ultimate_agent(agent_id: str, profile, duration_sec: int, c
                 await human_scroll(page, random.choice(["down", "up"]), random.randint(100, 400))
             
             # ОТПРАВКА СООБЩЕНИЯ В ЧАТ (30% вероятность за цикл)
-            if random.random() < 0.30:
+            # Проверка: прошло ли 60 секунд и случайный шанс 15%
+            if (time.time() - start_time) > 60 and random.random() < 0.15:
                 msg = random.choice(CHAT_MESSAGES)
                 try:
                     await irc_client.send_message(channel, msg)
@@ -97,7 +98,7 @@ async def main():
     print("="*70)
     
     NUM_AGENTS = 5
-    DURATION = 35  # 35 секунд для демонстрации параллельной работы
+    DURATION = 90  # 35 секунд для демонстрации параллельной работы
     CHANNEL = "twitch"
     
     # 1. Получаем банк профилей
