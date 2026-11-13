@@ -1,5 +1,6 @@
 import asyncio
 import websockets
+import time
 
 class TwitchIRCClient:
     def __init__(self, nickname: str, oauth_token: str = None):
@@ -27,41 +28,34 @@ class TwitchIRCClient:
         await self.ws.send(f"JOIN #{channel}")
         print(f"✅ Присоединился к #{channel}")
     
+    async def send_message(self, channel: str, message: str):
+        """Отправляет сообщение в чат."""
+        if not self.connected or not self.ws:
+            raise RuntimeError("Не подключено к IRC")
+        channel = channel.lstrip("#").lower()
+        await self.ws.send(f"PRIVMSG #{channel} :{message}")
+        # print(f"💬 Отправлено в чат: '{message}'") # Убрал дублирующий принт, так как он есть в основном скрипте
+    
     async def listen(self, duration_sec: int = 10):
         try:
-            import time
             start = time.time()
             while (time.time() - start) < duration_sec:
-                msg = await asyncio.wait_for(self.ws.recv(), timeout=duration_sec)
+                msg = await asyncio.wait_for(self.ws.recv(), timeout=1.0)
                 if "PING" in msg:
                     await self.ws.send("PONG :tmi.twitch.tv")
                 elif "PRIVMSG" in msg:
                     parts = msg.split(" ", 3)
                     if len(parts) >= 4:
                         user = parts[0].split("!")[0].lstrip(":")
-                        channel = parts[2]
+                        ch = parts[2]
                         text = parts[3].lstrip(":").strip()
-                        print(f"💬 [{channel}] {user}: {text}")
+                        print(f"💬 [{ch}] {user}: {text}")
         except asyncio.TimeoutError:
+            pass
+        except Exception:
             pass
     
     async def close(self):
         if self.ws:
             await self.ws.close()
             print("✅ IRC соединение закрыто")
-
-async def test_irc_client():
-    print("🧪 Тест IRC-клиента (анонимный режим)...")
-    client = TwitchIRCClient(nickname="justinfan12345")
-    try:
-        await client.connect()
-        await client.join_channel("twitch")
-        print("⏳ Слушаем чат 10 секунд...")
-        await client.listen(10)
-        await client.close()
-        print("✅ Тест завершён")
-    except Exception as e:
-        print(f"❌ Ошибка: {e}")
-
-if __name__ == "__main__":
-    asyncio.run(test_irc_client())
