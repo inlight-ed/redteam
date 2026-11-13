@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test Stream Page</title>
+    <style>
+        body { font-family: Arial; background: #1a1a1a; color: #fff; margin: 0; padding: 20px; }
+        .video-player { width: 800px; height: 450px; background: #000; border: 2px solid #9146ff; display: flex; align-items: center; justify-content: center; }
+        .stats { margin-top: 20px; padding: 10px; background: #333; }
+    </style>
+</head>
+<body>
+    <h1>🧪 Test Stream for Red Team Research</h1>
+    
+    <div class="video-player">
+        <p>[VIDEO PLAYER AREA]<br>Mouse events: <span id="mouse-count">0</span></p>
+    </div>
+    
+    <div class="stats">
+        <p>Time on page: <span id="time-count">0</span>s</p>
+        <p>Visibility: <span id="visibility">visible</span></p>
+    </div>
+
+    <script>
+        let mouseCount = 0;
+        let startTime = Date.now();
+        
+        document.addEventListener('mousemove', () => {
+            mouseCount++;
+            document.getElementById('mouse-count').textContent = mouseCount;
+        });
+        
+        setInterval(() => {
+            const elapsed = Math.floor((Date.now() - startTime) / 1000);
+            document.getElementById('time-count').textContent = elapsed;
+        }, 1000);
+        
+        document.addEventListener('visibilitychange', () => {
+            document.getElementById('visibility').textContent = document.visibilityState;
+        });
+    </script>
+</body>
+</html>
