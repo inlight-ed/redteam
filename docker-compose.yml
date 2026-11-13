@@ -1,0 +1,64 @@
+version: '3.8'
+
+services:
+  # Одиночный Ultimate Agent (для тестирования)
+  ultimate-agent:
+    build: .
+    container_name: redteam-ultimate
+    volumes:
+      - ./logs:/app/logs
+    environment:
+      - HEADLESS=true
+      - NUM_AGENTS=1
+      - DURATION=60
+    command: ["twitch-redteam/run_ultimate_agent.py"]
+    restart: unless-stopped
+
+  # Swarm из 5 агентов
+  swarm:
+    build: .
+    container_name: redteam-swarm
+    volumes:
+      - ./logs:/app/logs
+    environment:
+      - HEADLESS=true
+      - NUM_AGENTS=5
+      - DURATION=90
+    command: ["twitch-redteam/run_swarm_ultimate.py"]
+    restart: unless-stopped
+
+  # Red vs Blue оценка
+  evaluate:
+    build: .
+    container_name: redteam-evaluate
+    volumes:
+      - ./logs:/app/logs
+    command: ["evaluate_red_vs_blue.py"]
+    profiles:
+      - evaluation
+
+  # Масштабируемый рой (10 агентов)
+  swarm-large:
+    build: .
+    container_name: redteam-swarm-large
+    volumes:
+      - ./logs:/app/logs
+    environment:
+      - HEADLESS=true
+      - NUM_AGENTS=10
+      - DURATION=120
+    command: ["twitch-redteam/run_swarm_ultimate.py"]
+    profiles:
+      - large-scale
+
+  # Тестовый запуск (быстрая проверка)
+  test:
+    build: .
+    container_name: redteam-test
+    volumes:
+      - ./logs:/app/logs
+    environment:
+      - HEADLESS=true
+    command: ["twitch-redteam/test_camoufox.py"]
+    profiles:
+      - testing
