@@ -1,0 +1,17 @@
+**/venv/
+**/.venv/
+**/env/
+**/__pycache__/
+**/logs/
+**/*.log
+**/*.jsonl
+.git/
+.vscode/
+.idea/
+Dockerfile
+docker-compose.yml
+.dockerignore
+README.md
+test_*.py
+diagnose_*.py
+test_page.html
