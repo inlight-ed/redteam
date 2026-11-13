@@ -1,0 +1,14 @@
+version: "3.9"
+services:
+  impersonate-proxy-go:
+    image: ghcr.io/ytkoka/impersonate-proxy:latest
+    container_name: impersonate-proxy-go
+    ports:
+      - "127.0.0.1:8080:8080"
+      - "127.0.0.1:8081:8081"
+    volumes:
+      - ./config.docker.yaml:/config.yaml:ro
+      - ./data:/data
+    restart: unless-stopped
+    profiles:
+      - go

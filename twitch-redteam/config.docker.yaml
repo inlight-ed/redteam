@@ -1,0 +1,24 @@
+listen: "0.0.0.0:8080"
+mgmt_listen: "0.0.0.0:8081"
+ca_cert: "/data/ca.crt"
+ca_key: "/data/ca.key"
+tls:
+  preset: "chrome"
+http:
+  header_order:
+    - "Host"
+    - "User-Agent"
+    - "Accept"
+    - "Accept-Language"
+    - "Accept-Encoding"
+    - "Sec-Ch-Ua"
+    - "Sec-Ch-Ua-Mobile"
+    - "Sec-Ch-Ua-Platform"
+http2:
+  enabled: true
+  settings:
+    - { id: 1, val: 65536 }
+    - { id: 2, val: 0 }
+    - { id: 4, val: 6291456 }
+    - { id: 6, val: 262144 }
+  window_update: 15663105

@@ -1,0 +1,27 @@
+================================================================================
+RED/BLUE TEAM RESEARCH STAND — Карта проекта
+================================================================================
+Структура теперь является стандартной. Файлы лежат на своих местах.
+
+BLUE TEAM (twitch-antifraud/):
+  - data/: schema.py, synthetic_generator.py
+  - features/: pipeline.py
+  - models/: isolation_forest.py, autoencoder.py, ensemble.py
+  - evaluation/: metrics.py
+  - run_demo.py
+
+RED TEAM (twitch-redteam/):
+  - core/: browser_factory.py, scheduler.py
+  - behaviors/: base.py, lurker.py, chatter.py, scanner.py, multi_tab.py
+  - humanizer/: mouse.py, timing.py, visibility.py, cdp_artifacts.js
+  - telemetry/: event_logger.py
+  - workers/: task_runner.py
+  - tools/: (скрипты верификации)
+  - docker-compose.yml, config.docker.yaml
+
+ЗАПУСК:
+  1. cd twitch-antifraud && pip install -r requirements.txt && python run_demo.py
+  2. cd twitch-redteam && pip install -r requirements.txt
+  3. playwright install chromium
+  4. docker compose --profile go up -d
+================================================================================
